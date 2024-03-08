@@ -1,5 +1,4 @@
-import telebot
-import os
+import telebot, os
 #Check the existence key
 if not os.path.exists('key.txt'):
     print("ERROR! Key doesn't exist! Please, contact with @useless_acc for futher information")
