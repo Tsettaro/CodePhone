@@ -3,3 +3,4 @@ user_sectret_data/user.json
 *.ogg
 *.txt
 *.pyc
+!requirements.txt
