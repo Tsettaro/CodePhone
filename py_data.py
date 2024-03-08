@@ -1,4 +1,9 @@
 import telebot
+import os
+#Check the existence key
+if not os.path.exists('key.txt'):
+    print("ERROR! Key doesn't exist! Please, contact with @useless_acc for futher information")
+    exit()
 with open('key.txt', 'r') as file:
     # Define your token here
     TELEGRAM_BOT_TOKEN = file.read()
