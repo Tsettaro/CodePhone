@@ -8,9 +8,6 @@ def from_timestamp_to_date(timestamp):
 
 def check_and_add_user(user_id, username, timestamp):
     date_of_start = from_timestamp_to_date(timestamp)
-
-    if not os.path.exists('user_sectret_data'):
-        os.makedirs('user_sectret_data')
     
     if not os.path.exists('user_sectret_data/user.json') or os.path.getsize('user_sectret_data/user.json') == 0:
         with open('user_sectret_data/user.json', 'w') as file:
