@@ -1,6 +1,5 @@
 from time import time
 import os, json
-last_call = {}
 
 def existence():
     if not os.path.exists('user_sectret_data'):
@@ -26,9 +25,8 @@ def rate_limit(message):
         with open('user_sectret_data/last_command_user.json', 'w') as file:
             json.dump(data, file)
 
-        if str(user_id) in data:
+        if str(user_id) in data and (current_time != data[str(user_id)]["last_timestamp"]):
             last_call_time = data[str(user_id)]["last_timestamp"]
-            print(last_call_time)
             # Чтобы в выводе не висело время ожидания в 0 секунд
             if current_time - last_call_time < 9:
                 return (10 - (current_time - last_call_time))

@@ -1,6 +1,7 @@
 from py_data import bot
 import user_func as js, os
 from guard import rate_limit
+import VTT
 # Define the start command handler function
 @bot.message_handler(commands=['start'])
 def start_message(message):
@@ -22,7 +23,8 @@ def handle_voice_message(message):
     if wait == 0:
         bot.reply_to(message, "Вы прислали голосовое сообщение. Да начнётся дешифрование!")
         js.check_and_add_user(message.from_user.id, str(message.from_user.first_name + " " + message.from_user.last_name), message.date)
-        js.save_audio(message.from_user.id, bot.get_file(message.voice.file_id), message.date)
+        way = js.save_audio(message.from_user.id, bot.get_file(message.voice.file_id), message.date)
+
     else:
         bot.reply_to(message, f'Извините, но нужно подождать {round(wait)} секунд после использования предыдущей команды.')
 
