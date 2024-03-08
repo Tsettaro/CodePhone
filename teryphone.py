@@ -4,6 +4,7 @@ import user_func as js, os
 @bot.message_handler(commands=['start'])
 def start_message(message):
     bot.reply_to(message, "Hello! I am your bot.")
+    js.check_and_add_user(message.from_user.id, str(message.from_user.first_name + " " + message.from_user.last_name), message.date)
 
 # Define the help command handler function
 @bot.message_handler(commands=['help'])
@@ -25,6 +26,7 @@ def handle_voice_message(message):
 
 # Main function to start the bot
 def main():
+    
     if not os.path.exists('key.txt'):
         print("ERROR! Key doesn't exist! Please, contact with @useless_acc fro futher information")
         exit()

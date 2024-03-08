@@ -19,12 +19,8 @@ def check_and_add_user(user_id, username, timestamp):
             data[str(user_id)] = {
                 "user": username,
                 "date_of_start": date_of_start,
-                "count_of_voice_message": 1,
+                "count_of_voice_message": 0,
             }
-        else:
-            # Обновить информацию о существующем пользователе
-            data[str(user_id)]["count_of_voice_message"] += 1
-        
         # Записать обновленные данные обратно в файл
         with open('user_sectret_data/user.json', 'w') as file:
             json.dump(data, file)
@@ -48,6 +44,12 @@ def save_audio(user_id, audio, timestamp):
 
     with open(directory_path + '/' +(str(date_of_start).replace(':','_').replace('-','_') + '.ogg'), 'wb') as file:
         file.write(bot.download_file(voice.file_path))
+    
+    with open('user_sectret_data/user.json', 'r') as file:
+        data = json.load(file)
+        data[str(user_id)]["count_of_voice_message"] += 1
+        with open('user_sectret_data/user.json', 'w') as file:
+            json.dump(data, file)
     # Count the audio files using a generator expression
     #audio_file_count = sum(1 for file in directory_path.glob('*') if file.suffix in audio_extensions)
     
