@@ -1,5 +1,5 @@
 from py_data import bot
-import check_user_secret as js
+import check_user as js
 # Define the start command handler function
 @bot.message_handler(commands=['start'])
 def start_message(message):
