@@ -1,5 +1,5 @@
 *secret*
-*.ogg
+*.wav
 *.txt
 *.pyc
 !requirements.txt
