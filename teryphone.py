@@ -1,7 +1,7 @@
 from py_data import bot
 import user_func as js, os
 from guard import rate_limit
-from VTT import recognize
+from VTT import recognize_vosk, recognize_whisper
 # Define the start command handler function
 @bot.message_handler(commands=['start'])
 def start_message(message):
@@ -24,14 +24,15 @@ def handle_voice_message(message):
         bot.reply_to(message, "Вы прислали голосовое сообщение. Да начнётся дешифрование!")
         js.check_and_add_user(message.from_user.id, str(message.from_user.first_name), message.date)
         wav = js.save_audio(message.from_user.id, bot.get_file(message.voice.file_id), message.date)
-        bot.reply_to(message, f"Расшифровка голосового сообщения: \n{recognize(wav)}")
+        #bot.reply_to(message, f"Расшифровка голосового сообщения: \n{recognize_vosk(wav)}")
+        bot.reply_to(message, f"Расшифровка голосового сообщения: \n{recognize_whisper(wav)}")
     else:
         bot.reply_to(message, f'Извините, но нужно подождать {round(wait)} секунд после использования предыдущей команды.')
 
 # Main function to start the bot
 def main():
     if not os.path.exists('key.txt'):
-        print("ERROR! Key doesn't exist! Please, contact with @useless_acc fro futher information")
+        print("ERROR! Key doesn't exist! Please, contact with @useless_acc for futher information")
         exit()
     bot.polling(none_stop=True)
 

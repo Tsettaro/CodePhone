@@ -1,5 +1,4 @@
-import wave
-import re
+import wave, re, whisper
 from vosk import Model, KaldiRecognizer
 
 pattern = r'"text" : "([^"]+)"'
@@ -8,7 +7,7 @@ model = Model("models/vosk-model-small-ru-0.22")
 # Random variables for stable work
 l = 0
 c = 0
-def recognize(wav_file):
+def recognize_vosk(wav_file):
     wf = wave.open(wav_file, "rb")
     global l, c
     rec = KaldiRecognizer(model, wf.getframerate())
@@ -25,3 +24,8 @@ def recognize(wav_file):
             c+=1
     result = re.search(pattern, rec.Result())
     return result.group(1)
+
+def recognize_whisper(wav_file):
+    base = whisper.load_model("base")
+    audio = base.transcribe(wav_file)
+    return audio["text"]
