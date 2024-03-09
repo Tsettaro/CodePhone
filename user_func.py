@@ -4,9 +4,10 @@ from datetime import datetime
 from py_data import bot
 import subprocess
 import wave
+
 def from_timestamp_to_date(timestamp):
     return datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
-
+  
 def check_and_add_user(user_id, username, timestamp):
     date_of_start = from_timestamp_to_date(timestamp)
     
@@ -43,6 +44,7 @@ def save_audio(user_id, audio, timestamp):
         os.makedirs(directory_path)
     # Define a list of audio file extensions
     voice = bot.get_file(audio.file_id)
+    
     filename_path = directory_path + '/' +(str(date_of_start).replace(':','_').replace('-','_'))
     
     with open(filename_path+'.oga', 'wb') as file:
