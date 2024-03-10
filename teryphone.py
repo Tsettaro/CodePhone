@@ -31,10 +31,7 @@ def handle_voice_message(message):
 
 # Main function to start the bot
 def main():
-    if not os.path.exists('key.txt'):
-        print("ERROR! Key doesn't exist! Please, contact with @useless_acc for futher information")
-        exit()
-    bot.polling(none_stop=True)
+    bot.polling()
 
 if __name__ == '__main__':
     main()
