@@ -1,31 +1,7 @@
-import json, os
+import json, os, subprocess
 from pathlib import Path
-from datetime import datetime
 from py_data import bot
-import subprocess
-
-def from_timestamp_to_date(timestamp):
-    return datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
-  
-def check_and_add_user(user_id, username, timestamp):
-    date_of_start = from_timestamp_to_date(timestamp)
-    
-    if not os.path.exists('user_sectret_data/user.json') or os.path.getsize('user_sectret_data/user.json') == 0:
-        with open('user_sectret_data/user.json', 'w') as file:
-            json.dump({}, file)
-    
-    with open('user_sectret_data/user.json', 'r') as file:
-        data = json.load(file)
-        if str(user_id) not in data:
-            # Добавить информацию о новом пользователе
-            data[str(user_id)] = {
-                "user": username,
-                "date_of_start": date_of_start,
-                "count_of_voice_message": 0,
-            }
-        # Записать обновленные данные обратно в файл
-        with open('user_sectret_data/user.json', 'w') as file:
-            json.dump(data, file)
+from log import from_timestamp_to_date
 
 def save_audio(user_id, audio, timestamp):
     date_of_start = from_timestamp_to_date(timestamp)
@@ -50,9 +26,9 @@ def save_audio(user_id, audio, timestamp):
         file.write(bot.download_file(voice.file_path))
     subprocess.run(['ffmpeg', '-i', filename_path+'.oga', filename_path+'.wav'])
     os.remove(filename_path+'.oga')
-    with open('user_sectret_data/user.json', 'r') as file:
+    with open('data/user.json', 'r') as file:
         data = json.load(file)
         data[str(user_id)]["count_of_voice_message"] += 1
-        with open('user_sectret_data/user.json', 'w') as file:
+        with open('data/user.json', 'w') as file:
             json.dump(data, file)
     return filename_path+'.wav'

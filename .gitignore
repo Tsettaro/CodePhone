@@ -3,5 +3,6 @@
 *.txt
 *.pyc
 !requirements.txt
-user_sectret_data/last_command_user.json
-user_sectret_data/user.json
+data/last_command_user.json
+data/user.json
+data/tts_text.json
