@@ -3,7 +3,6 @@ from pathlib import Path
 from datetime import datetime
 from py_data import bot
 import subprocess
-import wave
 
 def from_timestamp_to_date(timestamp):
     return datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
