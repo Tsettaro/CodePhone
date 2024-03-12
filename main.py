@@ -25,7 +25,7 @@ def handle_voice_message(message):
         js.check_and_add_user(message.from_user.id, str(message.from_user.first_name), message.date)
         wav = js.save_audio(message.from_user.id, bot.get_file(message.voice.file_id), message.date)
         #bot.reply_to(message, f"Расшифровка голосового сообщения: \n{recognize_vosk(wav)}")
-        bot.reply_to(message, f"Расшифровка голосового сообщения: \n{recognize_whisper(wav)}")
+        bot.reply_to(message, f"Расшифровка голосового сообщения:\n{recognize_whisper(wav)}")
     else:
         bot.reply_to(message, f'Извините, но нужно подождать {round(wait)} секунд после использования предыдущей команды.')
 

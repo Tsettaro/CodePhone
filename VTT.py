@@ -1,5 +1,6 @@
-import wave, re, whisper
+import wave, re
 from vosk import Model, KaldiRecognizer
+from faster_whisper import WhisperModel
 
 pattern = r'"text" : "([^"]+)"'
 model = Model("models/vosk-model-small-ru-0.22")
@@ -26,6 +27,7 @@ def recognize_vosk(wav_file):
     return result.group(1)
 
 def recognize_whisper(wav_file):
-    base = whisper.load_model("base")
-    audio = base.transcribe(wav_file)
-    return audio["text"]
+    base = WhisperModel("medium", device="cpu", compute_type="int8")
+    segments, _ = base.transcribe(wav_file)
+    result = ''.join(segment.text for segment in segments) 
+    return result
