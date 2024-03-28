@@ -1,6 +1,7 @@
 import json, os
 from datetime import datetime
 from time import time
+import codecs
 k = 1
 def from_timestamp_to_date(timestamp):
     return datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
@@ -30,6 +31,8 @@ def log_tts_text(user_id, message_text):
         with open('data/tts_text.json', 'w') as file:
             json.dump({}, file)
     global k
+    print(message_text)
+    
     with open('data/tts_text.json', 'r') as file:
         data = json.load(file)
         data[k] = {
