@@ -1,0 +1,9 @@
+services:
+  telegram-bot:
+    container_name: test_your_might
+    working_dir: /tg_bot
+    restart: always
+    build:
+        context: .
+        dockerfile: Dockerfile
+    command: sh -c "python main.py"
