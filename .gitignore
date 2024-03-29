@@ -3,6 +3,4 @@
 *.txt
 *.pyc
 !requirements.txt
-data/last_command_user.json
-data/user.json
-data/tts_text.json
+*.json
