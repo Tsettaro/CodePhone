@@ -1,7 +1,7 @@
 import json, os, subprocess
 from pathlib import Path
-from py_data import bot
-from log import from_timestamp_to_date
+from src.py_data import bot
+from src.log import from_timestamp_to_date
 
 def save_audio(user_id, audio, timestamp):
     date_of_start = from_timestamp_to_date(timestamp)
