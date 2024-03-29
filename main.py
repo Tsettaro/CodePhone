@@ -1,9 +1,9 @@
-from py_data import bot
-from guard import rate_limit, user_in_da_house
-from VTT import recognize_whisper
-from TTS import tts
-from log import log_user, log_tts_text
-import audio as js, os
+from src.py_data import bot
+from src.guard import rate_limit, user_in_da_house
+from src.VTT import recognize_whisper
+from src.TTS import tts
+from src.log import log_user, log_tts_text
+import src.audio as js, os
 
 # Define the start command handler function
 @bot.message_handler(commands=['start'])
