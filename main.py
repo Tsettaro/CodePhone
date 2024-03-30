@@ -29,7 +29,7 @@ def echo_message(message):
         bot.reply_to(message, f'Извините, но нужно подождать {round(wait)} секунд после использования предыдущей команды.')
 @bot.message_handler(content_types=['voice'])
 def handle_voice_message(message):
-    if user_in_da_house(message, "write"):
+    if user_in_da_house(message, 1):
         wait = rate_limit(message)
         if wait == 0:
             bot.reply_to(message, "Вы прислали голосовое сообщение. Да начнётся этап дешифрования!")
@@ -39,7 +39,7 @@ def handle_voice_message(message):
             bot.reply_to(message, f"Расшифровка голосового сообщения:\n{recognize_whisper(wav)}")
         else:
             bot.reply_to(message, f'Извините, но нужно подождать {round(wait)} секунд после использования предыдущей команды.')
-        user_in_da_house(message, "delete")
+        user_in_da_house(message, 0)
     else:
         bot.reply_to(message, "Вы не можете использовать эту команду пока обрабатывается предыдущее голосовое сообщение!")
 

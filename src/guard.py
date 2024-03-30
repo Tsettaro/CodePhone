@@ -40,21 +40,24 @@ def user_in_da_house(message, status):
     with open('data/anti-DDOS.json', 'r') as file:
         user_id = message.from_user.id
         data = json.load(file)
+
         if str(user_id) not in data:
             # Добавить информацию о новом пользователе
             data[str(user_id)] = {
                 "status": "execute",
             }
-        # Записать обновленные данные обратно в файл
+            # Записать обновленные данные обратно в файл
             make_fcking_dumps(data, "anti-DDOS")
-            return True
-
-        elif str(user_id) in data and data[str(user_id)]["status"] == "execute":
-            data[str(user_id)]["status"] = "delete"
-            make_fcking_dumps(data, "anti-DDOS")
-            return True
-        else:
-            # Delete user from anit-DDOS
-            del data[str(user_id)]
-            make_fcking_dumps(data, "anti-DDOS")
+        
+        if (status == 1):
+            if str(user_id) in data and data[str(user_id)]["status"] == "execute":
+                data[str(user_id)]["status"] = "delete"
+                make_fcking_dumps(data, "anti-DDOS")
+                return True
+            
             return False
+        else:
+            if str(user_id) in data and data[str(user_id)]["status"] == "delete":
+                # Delete user from anit-DDOS
+                del data[str(user_id)]
+                make_fcking_dumps(data, "anti-DDOS")

@@ -1,22 +1,20 @@
-FROM python:3.10-slim
+# Базовый образ
+FROM python:3.10
 
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
-
-# Установим директорию для работы
-
+# Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /tg_bot
 
 COPY ./requirements.txt ./
 
-# Устанавливаем зависимости и gunicorn
-RUN apt-get update && \
-    apt-get install -y ffmpeg
+# Устанавливаем зависимости
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r ./requirements.txt
+RUN pip install --no-cache-dir -r /tg_bot/requirements.txt
 
+# Устанавливаем ffmpeg
+RUN apt-get update && apt-get install -y ffmpeg
 
-# Копируем файлы и билд
 COPY ./ ./
-
-RUN chmod -R 777 ./
+# Команда для запуска бота
+CMD ["python", "main.py"]

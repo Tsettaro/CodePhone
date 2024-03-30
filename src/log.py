@@ -1,7 +1,6 @@
 import json, os
 from datetime import datetime
 from time import time
-import codecs
 k = 1
 def from_timestamp_to_date(timestamp):
     return datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")

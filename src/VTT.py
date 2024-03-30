@@ -1,7 +1,7 @@
 from faster_whisper import WhisperModel
 
 def recognize_whisper(wav_file):
-    base = WhisperModel("medium", device="cpu", compute_type="int8")
+    base = WhisperModel("faster-whisper-medium", device="cpu", compute_type="int8")
     segments, _ = base.transcribe(wav_file)
     result = ''.join(segment.text for segment in segments) 
     return result
