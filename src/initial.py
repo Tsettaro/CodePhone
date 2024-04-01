@@ -1,6 +1,6 @@
 import telebot, os
 #Check the existence key
-if not os.path.exists('secret/key.txt'):
+if not os.path.exists('secrets/key.txt'):
     print("ERROR! Key doesn't exist! Please, contact with @useless_acc for futher information")
     exit()
 with open('secret/key.txt', 'r') as file:
