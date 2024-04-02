@@ -2,6 +2,7 @@ from src.initial import bot
 from src.guard import rate_limit, user_in_da_house
 from src.VTT import recognize_whisper
 from src.TTS import tts
+from src.log import log_tts
 import src.audio as js, os
 import src.my_sql_connect as sql
 
@@ -24,6 +25,7 @@ def echo_message(message):
                 bot.reply_to(message, f'Ах ты {message.from_user.first_name} окаянный! Пришли другое нам послание!')
             if os.path.exists("audio_text.ogg"):
                 bot.send_voice(message.chat.id, open('audio_text.ogg', 'rb'))
+                log_tts(message.from_user.id, message.text)
                 os.remove("audio_text.ogg")
         else:
             bot.reply_to(message, f'Извините, но нужно подождать {round(wait)} секунд после использования предыдущей команды.')
