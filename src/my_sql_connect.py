@@ -35,12 +35,15 @@ def check_user(user_id):
         result = cursor.fetchone()
         cursor.close()
         connection.close()
-        if result:
+        if result == None:
+            cursor.close()
+            connection.close()
+            return False
+            
+        else:
             cursor.close()
             connection.close()
             return True
-        else:
-            return False
     else:
         exit()
 
@@ -55,19 +58,15 @@ def add_user(user_id, username, timestamp):
         password=SQL_KEY[2],
         database=SQL_KEY[3]
         )
-        if connection.is_connected():
-            print("Соединение с MySQL установлено")
-        else:
-            print("Соединение с MySQL не установлено")
-            exit()
 
         cursor = connection.cursor()
-        select_query = "SELECT * FROM users WHERE ID = %s"
-        cursor.execute(select_query, (user_id,))
+        select_query = f"SELECT * FROM users WHERE ID = {user_id}"
+        cursor.execute(select_query)
         result = cursor.fetchone()
         if result:
             pass
         else:
+            print(user_id)
             sql = "INSERT INTO users (ID, name, reg_date, count_of_voice_messages, count_of_text_messages) VALUES (%s, %s, %s, %s, %s)"
             data = (user_id, username, from_timestamp_to_date(timestamp), 0, 0)
             cursor.execute(sql, data)
@@ -87,14 +86,9 @@ def add_count(user_id, voice_messages_count, text_messages_count):
       password=SQL_KEY[2],
       database=SQL_KEY[3]
     )
-    if connection.is_connected():
-        print("Соединение с MySQL установлено")
-    else:
-        print("Соединение с MySQL не установлено")
-        exit()
 
     cursor = connection.cursor()
-    sql = "UPDATE Log_data SET count_of_voice_messages = count_of_voice_messages + %s, count_of_text_messages = count_of_text_messages + %s WHERE ID = %s"
+    sql = "UPDATE users SET count_of_voice_messages = count_of_voice_messages + %s, count_of_text_messages = count_of_text_messages + %s WHERE ID = %s"
     cursor.execute(sql, (voice_messages_count, text_messages_count, user_id))
     connection.commit()
     cursor.close()
