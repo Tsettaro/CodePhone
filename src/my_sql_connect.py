@@ -39,14 +39,21 @@ def check_user(user_id):
     result = cursor.fetchone()
     cursor.close()
     if result == None:
-        cursor.close()
         connection.close( )
         return False
             
     else:
-        cursor.close()
         connection.close( )
         return True       
+
+def delete_user(user):
+    connection = connect()
+    cursor = connection.cursor()
+    sql = "DELETE FROM users WHERE user_id = %s"
+    cursor.execute(sql, (user,))
+    connection.commit()
+    cursor.close()
+    connection.close( )
 
 def add_user(user_id, username, timestamp):
     connection = connect()
@@ -60,7 +67,7 @@ def add_user(user_id, username, timestamp):
         cursor.execute(sql, data)
         connection.commit()
         cursor.close()
-        connection.close( )
+    connection.close( )
 
 def add_count(user_id, voice_messages_count, text_messages_count):
     connection = connect()

@@ -12,6 +12,15 @@ def start_message(message):
     bot.reply_to(message, "Hello! I am your bot.")
     sql.add_user(message.from_user.id, str(message.from_user.first_name), message.date)
 
+@bot.message_handler(commands=['delete'])
+def delete_user(message):
+    if sql.check_user(message.from_user.id):
+        sql.delete_user(message.from_user.id)
+        bot.reply_to(message, "Your user was deleted")
+    else:
+        bot.reply_to(message, "Please, restart bot with command /start")
+        
+
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
     if sql.check_user(message.from_user.id):
