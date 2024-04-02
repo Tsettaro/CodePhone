@@ -2,7 +2,6 @@ from src.initial import bot
 from src.guard import rate_limit, user_in_da_house
 from src.VTT import recognize_whisper
 from src.TTS import tts
-from src.log import log_user, log_tts_text
 import src.audio as js, os
 import src.my_sql_connect as sql
 
