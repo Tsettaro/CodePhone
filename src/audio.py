@@ -1,7 +1,7 @@
 import json, os, subprocess
 from pathlib import Path
-from src.py_data import bot
-from src.log import from_timestamp_to_date
+from src.initial import bot
+from src.my_sql_connect import from_timestamp_to_date
 
 def save_audio(user_id, audio, timestamp):
     date_of_start = from_timestamp_to_date(timestamp)
@@ -26,9 +26,4 @@ def save_audio(user_id, audio, timestamp):
         file.write(bot.download_file(voice.file_path))
     subprocess.run(['ffmpeg', '-i', filename_path+'.oga', filename_path+'.wav'])
     os.remove(filename_path+'.oga')
-    with open('data/user.json', 'r') as file:
-        data = json.load(file)
-        data[str(user_id)]["count_of_voice_message"] += 1
-        with open('data/user.json', 'w') as file:
-            json.dump(data, file)
     return filename_path+'.wav'
